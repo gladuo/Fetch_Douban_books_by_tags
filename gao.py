@@ -40,7 +40,7 @@ def get_books_by_tag(tag='小说', start=0, count=100):
     print 'Book from '+str(start)+' to '+str(start+count-1)+' is downloaded.'
 
 
-def gao():
+def gao(tag='小说'):
     lasti = 0
     for i in range(0, 150000, 100):
         if done:
@@ -50,8 +50,23 @@ def gao():
             print 'sleep for %ds' %t
             time.sleep(t)
             lasti = i
-        get_books_by_tag('小说', i, 100)
+        get_books_by_tag(tag, i, 100)
+
+
+def get_books_by_tags():
+    tags = []
+    with open('tags.txt', 'r') as f:
+        for tag in f.readlines():
+            tags.append(tag.strip('\n'))
+    print tags
+
+    for tag in tags:
+        global done
+        done = False
+        print '--- %s is downloading ---' % tag
+        gao(tag)
+        print '--- %s is downloaded---' % tag
 
 
 if __name__ == '__main__':
-    gao()
+    get_books_by_tags()
