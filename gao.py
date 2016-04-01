@@ -30,8 +30,9 @@ def get_books_by_tag(tag='小说', start=0, count=100):
     js = json.loads(r.text)
     with open(tag+'.txt', 'a+') as f:
         book_list = js['books']
-        if book_list is []:
+        if not book_list:
             print tag+' is completely downloaded !'
+            global done
             done = True
             return
         for book in book_list:
@@ -40,8 +41,8 @@ def get_books_by_tag(tag='小说', start=0, count=100):
 
 
 def gao():
-    lasti = 65900
-    for i in range(65900, 130000, 100):
+    lasti = 0
+    for i in range(0, 150000, 100):
         if done:
             break
         if i-lasti >= 1000:
