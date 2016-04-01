@@ -46,7 +46,7 @@ def gao(tag='小说'):
         if done:
             break
         if i-lasti >= 1000:
-            t = random.randint(10, 40)
+            t = random.randint(20, 40)
             print 'sleep for %ds' %t
             time.sleep(t)
             lasti = i
