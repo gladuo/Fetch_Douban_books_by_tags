@@ -42,6 +42,8 @@ def get_books_by_tag(tag='小说', start=0, count=100):
 def gao():
     lasti = 65900
     for i in range(65900, 130000, 100):
+        if done:
+            break
         if i-lasti >= 1000:
             t = random.randint(10, 40)
             print 'sleep for %ds' %t
