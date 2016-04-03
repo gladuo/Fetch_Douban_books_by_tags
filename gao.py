@@ -27,29 +27,30 @@ def get_books_by_tag(tag='小说', start=0, count=100):
         'count': count,
     }
     r = requests.get(API_SEARCH_URL, payload)
+    # print r.headers
     js = json.loads(r.text)
     with open(tag+'.txt', 'a+') as f:
         book_list = js['books']
         if not book_list:
-            print tag+' is completely downloaded !'
+            print '--- %s is completely downloaded ! ---' % tag
             global done
             done = True
             return
         for book in book_list:
             f.write(repr(book)+'\n')
-    print 'Book from '+str(start)+' to '+str(start+count-1)+' is downloaded.'
+    print '%s book from ' % tag+str(start)+' to '+str(start+count-1)+' is downloaded.'
 
 
 def gao(tag='小说'):
-    lasti = 0
+    last_i = 0
     for i in range(0, 150000, 100):
         if done:
             break
-        if i-lasti >= 1000:
-            t = random.randint(20, 40)
-            print 'sleep for %ds' %t
+        if i - last_i >= 1500:
+            t = random.randint(10, 40)
+            print 'sleep for %ds' % t
             time.sleep(t)
-            lasti = i
+            last_i = i
         get_books_by_tag(tag, i, 100)
 
 
@@ -58,15 +59,15 @@ def get_books_by_tags():
     with open('tags.txt', 'r') as f:
         for tag in f.readlines():
             tags.append(tag.strip('\n'))
-    print tags
 
     for tag in tags:
         global done
         done = False
         print '--- %s is downloading ---' % tag
         gao(tag)
-        print '--- %s is downloaded---' % tag
+        print '--- %s is completely downloaded ! ---' % tag
 
 
 if __name__ == '__main__':
     get_books_by_tags()
+    # gao('艺术')
