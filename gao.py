@@ -70,4 +70,5 @@ def get_books_by_tags():
 
 if __name__ == '__main__':
     get_books_by_tags()
-    # gao('艺术')
+    # fetch_tags()
+    # gao('科普')
