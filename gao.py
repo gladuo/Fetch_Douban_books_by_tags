@@ -1,5 +1,9 @@
 # coding=utf-8
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 from pyquery import PyQuery as pq
 import requests
 import json
@@ -29,7 +33,7 @@ def get_books_by_tag(tag='小说', start=0, count=100):
     r = requests.get(API_SEARCH_URL, payload)
     # print r.headers
     js = json.loads(r.text)
-    with open(tag+'.txt', 'a+') as f:
+    with open(tag+'.json', 'a+') as f:
         book_list = js['books']
         if not book_list:
             print '--- %s is completely downloaded ! ---' % tag
@@ -37,7 +41,7 @@ def get_books_by_tag(tag='小说', start=0, count=100):
             done = True
             return
         for book in book_list:
-            f.write(repr(book)+'\n')
+            f.write(json.dumps(book, ensure_ascii=False)+'\n')
     print '%s book from ' % tag+str(start)+' to '+str(start+count-1)+' is downloaded.'
 
 
